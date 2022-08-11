@@ -2,6 +2,7 @@ package com.example.pokedex.api
 import android.util.Log
 import com.example.pokedex.api.model.PokemonApiResult
 import com.example.pokedex.api.model.PokemonsApiResult
+import com.example.pokedex.domain.Pokemon
 import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -20,24 +21,19 @@ object PokemonRepository { //transformando em object para impedir que vários re
 
     }
 
-    fun listPokemons(limit: Int = 300) { //chamando a lista de pokemons da interface e definindo um limite
+    fun listPokemons(limit: Int = 151): PokemonsApiResult? { //chamando a lista de pokemons da interface e definindo um limite
 
        val call = service.listPokemons(limit)
 
-        call.enqueue(object : Callback<PokemonsApiResult>{ //callback trazendo a apiresult
+        return call.execute().body()
 
-            override fun onResponse(
-                call: Call<PokemonsApiResult>,
-                response: Response<PokemonsApiResult>
-            ) {
-               Log.d("POKEMON_API", "Pokémons list loaded.") //deu bom
-            }
+    }
 
-            override fun onFailure(call: Call<PokemonsApiResult>, t: Throwable) {
-                Log.e("POKEMON_API", "Error loading pokemons list.", t) //deu ruim
-            }
+    fun getPokemon(number :Int): PokemonApiResult? { //chamando a lista de pokemons da interface e definindo um limite
 
-        } )
+       val call = service.getPokemon(number)
+
+        return call.execute().body()
 
     }
 }

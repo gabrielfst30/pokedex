@@ -18,7 +18,7 @@ data class PokemonResult( //nome do pokemon e url do pokemon que serão recebida
 data class PokemonApiResult( //id, nome e tipo do pokemon
     val id: Int,
     val name: String,
-    val types: PokemonTypeSlot
+    val types: List <PokemonTypeSlot>
 )
 
 data class PokemonTypeSlot( //slots de tipo de pokemon
